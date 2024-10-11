@@ -18,9 +18,14 @@ def main() -> None:
     if data['PC'] != os.environ['COMPUTERNAME']:
         logger.error(f"Storage file for {data['PC']} will not run on {os.environ['COMPUTERNAME']}")
         return
-
+    ignore = ['$RECYCLE.BIN', 'System Volume Information']
     folders = [x for x in Path.cwd().glob('*') if x.is_dir()]
+    for k in data.keys():
+        if k not in folders:
+            logger.warning(f"There is no folder for {k}.")
     for folder in folders:
+        if folder in ignore:
+            continue
         if folder.name not in data.keys():
             logger.warning(f"There is no lease for {folder.name}.")
         else:
