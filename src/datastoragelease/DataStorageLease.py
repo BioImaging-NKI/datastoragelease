@@ -6,7 +6,7 @@ from datetime import date
 import win32com.client as com
 
 
-def main() -> None:
+def datastoragelease() -> None:
     logger = logging.getLogger("DataStorageLease")
     pth = Path(Path.cwd(), 'DataStorageLease.toml')
     if not pth.exists():
@@ -52,9 +52,3 @@ def converttobytes(text: str) -> int:
     strfind = ['kb', 'mb', 'gb', 'tb', 'eb']
     unit = [i for i, x in enumerate(strfind) if x in text.casefold()]
     return int(text[0:-2]) * 10 ** ((1 + unit[0]) * 3)
-
-
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
-    main()
-    os.system('pause')
