@@ -24,3 +24,9 @@ dev = ["pyinstaller"]
 
 [project.urls]
 Homepage = "https://github.com/BioImaging-NKI/datastoragelease"
+
+[tool.mypy]
+python_version = '3.12'
+mypy_path = "src"
+packages = "datastoragelease"
+strict = true
