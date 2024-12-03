@@ -1,6 +1,6 @@
 [build-system]
-build-backend = 'mesonpy'
-requires = ['meson-python']
+requires = ["setuptools>=75.0.0"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "datastoragelease"
@@ -20,7 +20,8 @@ dependencies = [
 requires-python = ">=3.12"
 
 [project.optional-dependencies]
-dev = ["pyinstaller"]
+dev = ["types-pywin32", "pyinstaller", "mypy", "bumpver"]
+build = ["pyinstaller"]
 
 [project.urls]
 Homepage = "https://github.com/BioImaging-NKI/datastoragelease"
@@ -30,3 +31,21 @@ python_version = '3.12'
 mypy_path = "src"
 packages = "datastoragelease"
 strict = true
+
+
+[tool.bumpver]
+current_version = "1.0.0"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "bump version {old_version} -> {new_version}"
+commit = true
+tag = true
+push = true
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+    'version = "{version}"',
+]
+"flifile/version.py" = [
+    "{version}"
+]

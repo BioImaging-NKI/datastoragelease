@@ -14,17 +14,23 @@ def datastoragelease() -> None:
         return
     with open(pth, 'rb') as fp:
         data = tomllib.load(fp)
-
+    if not 'PC' in data.keys():
+        logger.error(f"No PC specified")
+        return
     if data['PC'] != os.environ['COMPUTERNAME']:
         logger.error(f"Storage file for {data['PC']} will not run on {os.environ['COMPUTERNAME']}")
         return
-    ignore = ['$RECYCLE.BIN', 'System Volume Information']
+    ignore = ['PC', '$RECYCLE.BIN', 'System Volume Information']
     folders = [x for x in Path.cwd().glob('*') if x.is_dir()]
-    for k in data.keys():
-        if k not in folders:
+    foldernames = [x.name for x in folders]
+    for k in data.keys():  # check if the foldernames exist
+        if k == 'PC':
+            continue
+        if k not in foldernames:
             logger.warning(f"There is no folder for {k}.")
     for folder in folders:
-        if folder in ignore:
+        if folder.name in ignore:
+            # logger.info(f"ignoring {folder}")
             continue
         if folder.name not in data.keys():
             logger.warning(f"There is no lease for {folder.name}.")
@@ -44,11 +50,11 @@ def datastoragelease() -> None:
 def sizeoffolder(pth: Path) -> int:
     fso = com.Dispatch("Scripting.FileSystemObject")
     folder = fso.GetFolder(str(pth))
-    return folder.Size
+    return int(folder.Size)
     # return sum(f.stat().st_size for f in pth.glob('**/*') if f.is_file())
 
 
 def converttobytes(text: str) -> int:
     strfind = ['kb', 'mb', 'gb', 'tb', 'eb']
     unit = [i for i, x in enumerate(strfind) if x in text.casefold()]
-    return int(text[0:-2]) * 10 ** ((1 + unit[0]) * 3)
+    return int(int(text[0:-2]) * 10 ** ((1 + unit[0]) * 3))
