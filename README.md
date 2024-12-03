@@ -12,7 +12,7 @@ Simple program that checks the size of folders against a .toml file.
 
 ## Example DataStorageLease.toml
 ```
-PC = "AC0130"
+PC = "MyPC"
 
 [JDoe]
 amount = "1TB"
