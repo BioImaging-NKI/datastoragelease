@@ -50,3 +50,7 @@ push = true
     "{version}"
 ]
 "VERSION" = ['filevers=(MAJOR, MINOR, PATCH, 0)']
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
