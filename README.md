@@ -2,6 +2,7 @@
 Simple program that checks the size of folders against a .toml file.
 
 ## Development
+`uv pip install -e .[dev]`
 * mypy strict `mypy`
 * version control with bumpver `bumpver update --patch --dry`
 * isort `uvx isort .`
