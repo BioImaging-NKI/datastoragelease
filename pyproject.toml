@@ -46,6 +46,7 @@ push = true
     'current_version = "{version}"',
     'version = "{version}"',
 ]
-"flifile/version.py" = [
+"src/datastoragelease/version.py" = [
     "{version}"
 ]
+"VERSION" = ['filevers=(MAJOR, MINOR, PATCH, 0)']
